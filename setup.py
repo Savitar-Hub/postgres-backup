@@ -38,7 +38,8 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     install_requires=[
-        'sh'
+        'sh',
+        'logging'
     ],
     classifiers=classifiers,
 )

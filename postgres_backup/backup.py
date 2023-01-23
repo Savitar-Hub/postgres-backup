@@ -1,20 +1,15 @@
 import os
-from pathlib import Path
-
+import gzip
 import typing
+from pathlib import Path
+from logger import logger
+
 
 try:
     from sh import pg_dump
 
 except ImportError as e:
-    print('You must have postgresql client installed: pg_dump not found')
-    os.system('apt-get install postgresql-client')
-
-try:
-    import gzip
-
-except ImportError as e:
-    print('You must have gzip package: gzip not found')
+    logger.error(f'You must have sh & postgresql client installed: {e}')
 
 
 class Backup:
@@ -42,8 +37,14 @@ class Backup:
     def create(
         self,
         out_path: typing.Union[str, Path] = 'backup.gz'
-    ):
+    ) -> str:
+
         username, password, host, port, db_name = self.get_db_params()
+
+        # Set env variable needed
+        os.environ['PGPASSWORD'] = password
+
+        logger.info('Staging creation of backup')
 
         with gzip.open(out_path, 'wb') as f:
             pg_dump(
@@ -55,4 +56,6 @@ class Backup:
                 '-E UTF-8',
                 _out=f)
 
+        logger.info('Finished creation of backup')
 
+        return out_path
