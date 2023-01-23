@@ -4,6 +4,8 @@ import typing
 from pathlib import Path
 from logger import logger
 
+from upload.providers import CloudProviders
+
 
 try:
     from sh import pg_dump
@@ -59,3 +61,10 @@ class Backup:
         logger.info('Finished creation of backup')
 
         return out_path
+
+    def upload(
+        self,
+        bucket_name: str = 'backup',
+        provider: CloudProviders = CloudProviders.gcs,
+    ):
+        pass
