@@ -6,9 +6,11 @@ You can upload them to cloud storage buckets by creating a cron job.
 ```python
     from postgres_backup import Backup
 
-    # Instantiate the backup object with Postgres database_uri: db:engine:[//[user[:password]@][host][:port]/][dbname]
+    # Instantiate the backup object with Postgres database_uri
     backup = Backup(database_uri)
 
     # Create the file for backup
     backup.create(out_file='backup.gz')
 ```
+
+Note that the URI has the following structure: db:engine:[//[user[:password]@][host][:port]/][dbname]
