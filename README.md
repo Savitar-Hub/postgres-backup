@@ -13,4 +13,4 @@ You can upload them to cloud storage buckets by creating a cron job.
     backup.create(out_file='backup.gz')
 ```
 
-Note that the URI has the following structure: db:engine:[//[user[:password]@][host][:port]/][dbname]
+Note that the URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`
