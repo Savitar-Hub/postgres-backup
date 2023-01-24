@@ -39,6 +39,23 @@ class GCStorage:
         return True
 
     @staticmethod
+    def _validate_new_bucket(self, storage_class: str):
+        """
+        Validate if the new bucket we want to crreate is of a valid storage class
+        :param self:
+        :param storage_class: the type of bucket we want to create
+        :return: True if created correctly
+        """
+
+        valid_storage_class = ['STANDARD', 'NEARLINE', 'COLDLINE', 'ARCHIVE']
+        if storage_class not in valid_storage_class:
+            raise BucketError(msg=f'Bucket storage class: {storage_class} invalid\nShould be in: {valid_storage_class}')
+
+        if self._validate_bucket(self):
+            raise BucketError(msg=f'Bucket {self.bucket_name} already exists')
+
+
+    @staticmethod
     def _get_bucket(self):
         """
         Get the bucket object from google
