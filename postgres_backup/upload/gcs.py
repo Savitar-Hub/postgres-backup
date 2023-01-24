@@ -8,6 +8,7 @@ from google.cloud.storage.client import Client
 from google.oauth2 import service_account
 
 from postgres_backup.exceptions.gcs import BucketError
+from postgres_backup.schemas.gcs import CloudStorageType
 
 
 class GCStorage:
@@ -47,13 +48,16 @@ class GCStorage:
         :return: True if created correctly
         """
 
-        valid_storage_class = ['STANDARD', 'NEARLINE', 'COLDLINE', 'ARCHIVE']
+        valid_storage_class = [storage_class.value for storage_class in CloudStorageType]
         if storage_class not in valid_storage_class:
-            raise BucketError(msg=f'Bucket storage class: {storage_class} invalid\nShould be in: {valid_storage_class}')
+            raise BucketError(
+                msg=f'Bucket storage class: {storage_class} invalid\nShould be in: {valid_storage_class}'
+            )
 
         if self._validate_bucket(self):
-            raise BucketError(msg=f'Bucket {self.bucket_name} already exists')
-
+            raise BucketError(
+                msg=f'Bucket {self.bucket_name} already exists'
+            )
 
     @staticmethod
     def _get_bucket(self):
@@ -76,3 +80,18 @@ class GCStorage:
         """
 
         return [bucket.name for bucket in self.client.list_buckets()]
+
+    def create_bucket(
+        self,
+        storage_class: str = CloudStorageType.STANDARD.value
+    ):
+        """
+        In the case we do not have a bucket already created for storing backups, we can create it.
+        :param storage_class: the type of bucket we want to create
+        :return: True if created correctly storage class
+        """
+
+        self._validate_new_bucket(self, storage_class)
+        self.client.create_bucket(self.bucket_name, storage_class)
+
+        return True

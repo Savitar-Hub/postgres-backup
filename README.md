@@ -56,3 +56,16 @@ Where the `google_cloud_certification` is a dictionary, with the key-values of t
 - token_uri
 - auth_provider_x509_cert_url
 - client_x509_cert_url
+
+In the case that we do not have a bucket already created for storing the backups, we could add additional parameters to create it:
+```python
+    from postgres_backup.schemas.gcs import CloudStorageType
+
+    backup.upload(
+        storage='gcs',
+        bucket_name,
+        google_cloud_certification,
+        create_bucket=True,
+        storage_class=CloudStorageType.STANDARD.value
+    )
+```
