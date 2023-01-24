@@ -2,10 +2,17 @@ import os
 import gzip
 import typing
 from pathlib import Path
+from datetime import date
+
 from logger import logger
+from google.cloud import storage
+from google.cloud.storage.bucket import Bucket
+from google.cloud.storage.client import Client
+from google.oauth2 import service_account
 
-from upload.providers import CloudProviders
-
+from postgres_backup.schemas import CloudStorageType
+from postgres_backup.schemas.providers import CloudProviders
+from postgres_backup.upload.gcs import GCStorage
 
 try:
     from sh import pg_dump
@@ -21,6 +28,8 @@ class Backup:
     ):
 
         self.db_uri = db_uri
+        self.file_name = None
+        self.local_file_path = None  # Store local file system location of backup file stored
 
     def get_db_params(
         self,
@@ -38,7 +47,9 @@ class Backup:
 
     def create(
         self,
-        out_path: typing.Union[str, Path] = 'backup.gz'
+        local_file_path: typing.Optional[str] = '',
+        out_file_name: typing.Union[str, Path] = 'backup',
+        out_file_extension: typing.Union[str, Path] = '.gz'
     ) -> str:
 
         username, password, host, port, db_name = self.get_db_params()
@@ -47,6 +58,18 @@ class Backup:
         os.environ['PGPASSWORD'] = password
 
         logger.info('Staging creation of backup')
+
+        file_name = out_file_name \
+           + '/' \
+           + str(date.today()) \
+           + out_file_extension
+
+        out_path = local_file_path \
+           + '/' \
+           + file_name
+
+        self.file_name = file_name
+        self.local_file_path = local_file_path
 
         with gzip.open(out_path, 'wb') as f:
             pg_dump(
@@ -64,7 +87,34 @@ class Backup:
 
     def upload(
         self,
-        bucket_name: str = 'backup',
-        provider: CloudProviders = CloudProviders.gcs,
+        clean: typing.Optional[bool] = True,
+        bucket_name:  typing.Optional[str] = 'backup',
+        remote_file_path: typing.Optional[str] = '',
+        provider:  typing.Optional[str] = CloudProviders.gcs.value,
+        # For uploading in Google Cloud
+        project_name: typing.Optional[str] = '',
+        google_cloud_certification: typing.Optional[
+            typing.Dict[str, str]
+        ] = None,
+        create_bucket: typing.Optional[bool] = False,
+        storage_class=CloudStorageType.STANDARD.value
     ):
-        pass
+
+        if provider == 'google_cloud_storage':
+            credentials = service_account.Credentials.from_service_account_info(
+                google_cloud_certification
+            )
+
+            client = storage.Client(
+                project=project_name,
+                credentials=credentials
+            )
+            gcs_storage = GCStorage(client=client, bucket_name=bucket_name)
+            gcs_storage.upload_file(
+                file_name=self.file_name,
+                local_file_path=self.local_file_path,
+                remote_file_path=remote_file_path,
+                clean=clean,
+                create_bucket=create_bucket,
+                storage_class=storage_class
+            )
