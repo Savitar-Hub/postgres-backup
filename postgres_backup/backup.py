@@ -9,8 +9,7 @@ from google.oauth2 import service_account
 
 from postgres_backup.schemas import CloudProviders, CloudStorageType
 from postgres_backup.upload import GCStorage
-
-from .logger import logger
+from postgres_backup.utils import logger, settings
 
 try:
     from sh import pg_dump
@@ -22,7 +21,7 @@ except ImportError as e:
 class Backup:
     def __init__(
         self,
-        db_uri: str
+        db_uri: str = settings.DATABASE_URL
     ):
 
         self.db_uri = db_uri
@@ -90,10 +89,10 @@ class Backup:
         remote_file_path: typing.Optional[str] = '',
         provider: typing.Optional[str] = CloudProviders.gcs.value,
         # For uploading in Google Cloud
-        project_name: typing.Optional[str] = '',
+        project_name: typing.Optional[str] = settings.PROJECT_NAME,
         google_cloud_certification: typing.Optional[
             typing.Dict[str, str]
-        ] = None,
+        ] = settings.GOOGLE_CLOUD_CERTIFICATION,
         create_bucket: typing.Optional[bool] = False,
         storage_class=CloudStorageType.NEARLINE.value
     ):
@@ -116,3 +115,9 @@ class Backup:
                 create_bucket=create_bucket,
                 storage_class=storage_class
             )
+
+
+if __name__ == '__main__':
+    backup = Backup()
+
+    backup.create()

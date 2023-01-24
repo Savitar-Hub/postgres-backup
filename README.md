@@ -62,6 +62,8 @@ Where the `google_cloud_certification` is a dictionary, with the key-values of t
     }
 ```
 
+You can provide each key as an environmental variable, as well as `DATABASE_URL` and `PROJECT_NAME` of the google bucket.
+
 
 In the case that we do not have a bucket already created for storing the backups, we could add additional parameters to create it:
 ```python
