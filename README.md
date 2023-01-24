@@ -51,16 +51,16 @@ And then after we have the backup created, we would keep following with:
 Where the `google_cloud_certification` is a dictionary, with the key-values of the client api keys:
 ```python
     google_cloud_credentials = {
-      type: "service_account",
-      project_id: "xxx-saas",
-      private_key_id: "xxxxxxxx",
-      private_key: "-----BEGIN PRIVATE KEY-----\nxxxxxxxxxx\n-----END PRIVATE KEY-----\n",
-      client_email: "xxx@xxx-saas.iam.gserviceaccount.com",
-      client_id: "xxx",
-      auth_uri: "https://accounts.google.com/o/oauth2/auth",
-      token_uri: "https://oauth2.googleapis.com/token",
-      auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-      client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/xxx%xxx-saas.iam.gserviceaccount.com"
+      "type": "service_account",
+      "project_id": "xxx-saas",
+      "private_key_id": "xxxxxxxx",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nxxxxxxxxxx\n-----END PRIVATE KEY-----\n",
+      "client_email": "xxx@xxx-saas.iam.gserviceaccount.com",
+      "client_id": "xxx",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/xxx%xxx-saas.iam.gserviceaccount.com"
     }
 ```
 
