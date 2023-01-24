@@ -42,9 +42,6 @@ This basically will install also the `google` package.
 
 And then after we have the backup created, we would keep following with:
 ```python
-    # Create the backup
-    backup.create()
-
     # Upload it to google cloud storage
     backup.upload(
         provider=CloudProviders.gcs.value,
