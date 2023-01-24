@@ -25,7 +25,7 @@ extras = {
 
 setup(
     name='postgres-backup',
-    version='0.1.7',
+    version='0.1.8',
     description='Automation of the creation of backups of Postgres databases',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -45,6 +45,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'sh',
+        'pydantic==1.10.4'
     ],
     extras_require=extras,
     classifiers=classifiers,
