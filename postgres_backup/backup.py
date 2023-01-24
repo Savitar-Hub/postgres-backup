@@ -8,9 +8,8 @@ from google.cloud import storage
 from google.oauth2 import service_account
 from logger import logger
 
-from postgres_backup.schemas import CloudStorageType
-from postgres_backup.schemas.providers import CloudProviders
-from postgres_backup.upload.gcs import GCStorage
+from postgres_backup.schemas import CloudProviders, CloudStorageType
+from postgres_backup.upload import GCStorage
 
 try:
     from sh import pg_dump
