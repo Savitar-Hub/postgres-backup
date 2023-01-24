@@ -85,6 +85,7 @@ class Backup:
     def upload(
         self,
         clean: typing.Optional[bool] = True,
+        file_name: typing.Optional[str] = '',
         bucket_name: typing.Optional[str] = settings.BUCKET_NAME,
         remote_file_path: typing.Optional[str] = '',
         provider: typing.Optional[str] = CloudProviders.gcs.value,
@@ -107,8 +108,11 @@ class Backup:
                 credentials=credentials
             )
             gcs_storage = GCStorage(client=client, bucket_name=bucket_name)
+
+            file_name = self.file_name if self.file_name else file_name
+
             gcs_storage.upload_file(
-                file_name=self.file_name,
+                file_name=file_name,
                 local_file_path=self.local_file_path,
                 remote_file_path=remote_file_path,
                 clean=clean,
