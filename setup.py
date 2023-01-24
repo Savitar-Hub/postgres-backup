@@ -25,7 +25,7 @@ extras = {
 
 setup(
     name='postgres-backup',
-    version='0.0.3',
+    version='0.1.2',
     description='Automation of the creation of backups of Postgres databases',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -45,7 +45,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'sh',
-        'logging'
     ],
     extras_require=extras,
     classifiers=classifiers,

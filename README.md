@@ -83,6 +83,6 @@ In the case that we do not have a bucket already created for storing the backups
         bucket_name=bucket_name,
         google_cloud_certification,
         create_bucket=True,
-        storage_class=CloudStorageType.STANDARD.value
+        storage_class=CloudStorageType.NEARLINE.value
     )
 ```
