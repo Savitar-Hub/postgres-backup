@@ -5,4 +5,4 @@ class CloudStorageType(StrEnum):
     STANDARD = 'STANDARD'
     NEARLINE = 'NEARLINE'
     COLDLINE = 'COLDLINE'
-    ARCHIVE  = 'ARCHIVE'
+    ARCHIVE = 'ARCHIVE'
