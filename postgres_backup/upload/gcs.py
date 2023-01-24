@@ -95,3 +95,41 @@ class GCStorage:
         self.client.create_bucket(self.bucket_name, storage_class)
 
         return True
+
+    def upload_file(
+        self,
+        file_name: str,
+        local_file_path: typing.Optional[str] = '',
+        remote_file_path: typing.Optional[str] = '',
+        clean: typing.Optional[bool] = True,
+        create_bucket: typing.Optional[bool] = False,
+        storage_class: typing.Optional[str] = CloudStorageType.STANDARD.value
+    ):
+        """
+        :param local_file_path: where is the path of folders where we have the file
+        :param remote_file_path: path if folders where we want to store the backup file in the bucket
+        :param file_name: where it is the file from our local file system
+        :param clean: if we want to remove the backup file from local file system
+        :param create_bucket: if for that upload of file, we want to first create the bucket for backups
+        :param storage_class: the type of storage bucket for storing backups
+        :return: True if created correctly
+        """
+
+        # Create the bucket if necessary
+        if create_bucket:
+            self.create_bucket(storage_class)
+
+        # Get the bucket instance
+        bucket = self._get_bucket(self)
+
+        # Define blob location in remote bucket
+        blob = bucket.blob(
+            remote_file_path + file_name
+        )
+
+        blob.upload_from_filename(local_file_path + file_name)
+
+        if clean:
+            os.remove(local_file_path + file_name)
+
+        return True
