@@ -58,7 +58,7 @@ class Backup:
         logger.info('Staging creation of backup')
 
         file_name = out_file_name \
-            + '/' \
+            + '_' \
             + str(date.today()) \
             + out_file_extension
 
