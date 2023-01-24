@@ -45,7 +45,7 @@ class Backup:
 
     def create(
         self,
-        local_file_path: typing.Optional[str] = '',
+        local_file_path: typing.Optional[str] = './',
         out_file_name: typing.Union[str, Path] = 'backup',
         out_file_extension: typing.Union[str, Path] = '.gz'
     ) -> str:
