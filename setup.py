@@ -18,9 +18,14 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
 ]
 
+extras = {
+    'gcs': ['google'],
+    'aws': ['boto3']
+}
+
 setup(
     name='postgres-backup',
-    version='0.0.1',
+    version='0.0.2',
     description='Automation of the creation of backups of Postgres databases',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -32,7 +37,8 @@ setup(
         'Postgres',
         'SQL',
         'database',
-        'PostgreSQL'
+        'PostgreSQL',
+        'Data Engineering'
     ],
     license='MIT',
     packages=find_packages(),
@@ -41,5 +47,6 @@ setup(
         'sh',
         'logging'
     ],
+    extras_require=extras,
     classifiers=classifiers,
 )
