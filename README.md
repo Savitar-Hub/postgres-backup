@@ -19,7 +19,12 @@ You can upload them to cloud storage buckets by creating a cron job.
     backup.create()
 ```
 
-Note that the URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`
+Note that the URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`.
+
+## Why?
+
+This package has proved experience of working well for databases of small-mid size.
+Doing this, you make sure you can store your database backups without relying in only one cloud provider or region.
 
 ## Bucket Storage
 
