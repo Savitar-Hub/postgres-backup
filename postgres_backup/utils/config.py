@@ -5,14 +5,14 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = 'postgres-backup'
+    PROJECT_NAME: str = os.getenv('PROJECT_NAME')
     DATABASE_URL: str = os.getenv('DATABASE_URL')
 
     # Google Cloud Certification information
     GOOGLE_CLOUD_TYPE = os.getenv('GOOGLE_CLOUD_TYPE')
     GOOGLE_CLOUD_PROJECT_ID = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
     GOOGLE_CLOUD_PRIVATE_KEY_ID = os.getenv('GOOGLE_CLOUD_PRIVATE_KEY_ID')
-    GOOGLE_CLOUD_PRIVATE_KEY = os.getenv('GOOGLE_CLOUD_PRIVATE_KEY').replace('\\n', '\n')
+    GOOGLE_CLOUD_PRIVATE_KEY = os.getenv('GOOGLE_CLOUD_PRIVATE_KEY', '').replace('\\n', '\n')
     GOOGLE_CLOUD_CLIENT_EMAIL = os.getenv('GOOGLE_CLOUD_CLIENT_EMAIL')
     GOOGLE_CLOUD_CLIENT_ID = os.getenv('GOOGLE_CLOUD_CLIENT_ID')
     GOOGLE_CLOUD_AUTH_URI = os.getenv('GOOGLE_CLOUD_AUTH_URI')
@@ -22,7 +22,10 @@ class Settings(BaseSettings):
     )
     GOOGLE_CLOUD_CLIENT_X509_CERT_URL = os.getenv('GOOGLE_CLOUD_CLIENT_X509_CERT_URL')
 
-    GOOGLE_CLOUD_CERTIFICATION: typing.Dict[str, str] = {
+    GOOGLE_CLOUD_CERTIFICATION: typing.Dict[
+        str,
+        typing.Union[None, str]
+    ] = {
         'type': GOOGLE_CLOUD_TYPE,
         'project_id': GOOGLE_CLOUD_PROJECT_ID,
         'private_key_id': GOOGLE_CLOUD_PRIVATE_KEY_ID,
