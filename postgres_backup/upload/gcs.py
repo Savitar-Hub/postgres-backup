@@ -21,7 +21,7 @@ class GCStorage:
         self.bucket_name = bucket_name
 
     @staticmethod
-    def _validate_bucket(self):
+    def _validate_bucket(self) -> bool:
         """
         Validation of the bucket that we provided.
 
@@ -35,3 +35,27 @@ class GCStorage:
             raise BucketError(
                 msg=f'Bucket {self.bucket_name} not found'
             )
+
+        return True
+
+    @staticmethod
+    def _get_bucket(self):
+        """
+        Get the bucket object from google
+
+        :param self:
+        :return: bucket instance
+        """
+
+        self._validate_bucket(self)
+
+        return self.client.get_bucket(self.bucket_name)
+
+    def list_bucket_name(self) -> typing.List[str]:
+        """
+        List the bucket names that we have.
+
+        :return: list with all the names of the actual buckets
+        """
+
+        return [bucket.name for bucket in self.client.list_buckets()]
