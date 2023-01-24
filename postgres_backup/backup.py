@@ -95,7 +95,7 @@ class Backup:
             typing.Dict[str, str]
         ] = None,
         create_bucket: typing.Optional[bool] = False,
-        storage_class=CloudStorageType.STANDARD.value
+        storage_class=CloudStorageType.NEARLINE.value
     ):
 
         if provider == 'google_cloud_storage':

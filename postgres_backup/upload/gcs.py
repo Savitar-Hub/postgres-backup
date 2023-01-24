@@ -97,7 +97,7 @@ class GCStorage:
         remote_file_path: typing.Optional[str] = '',
         clean: typing.Optional[bool] = True,
         create_bucket: typing.Optional[bool] = False,
-        storage_class: typing.Optional[str] = CloudStorageType.STANDARD.value
+        storage_class: typing.Optional[str] = CloudStorageType.NEARLINE.value
     ):
         """
         :param local_file_path: where is the path of folders where we have the file
