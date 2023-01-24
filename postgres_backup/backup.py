@@ -6,10 +6,11 @@ from pathlib import Path
 
 from google.cloud import storage
 from google.oauth2 import service_account
-from logger import logger
 
 from postgres_backup.schemas import CloudProviders, CloudStorageType
 from postgres_backup.upload import GCStorage
+
+from .logger import logger
 
 try:
     from sh import pg_dump
