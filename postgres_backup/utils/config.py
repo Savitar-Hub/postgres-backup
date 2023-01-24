@@ -5,8 +5,10 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = os.getenv('PROJECT_NAME')
     DATABASE_URL: str = os.getenv('DATABASE_URL')
+
+    PROJECT_NAME: str = os.getenv('PROJECT_NAME')
+    BUCKET_NAME: str = os.getenv('BUCKET_NAME')
 
     # Google Cloud Certification information
     GOOGLE_CLOUD_TYPE = os.getenv('GOOGLE_CLOUD_TYPE')

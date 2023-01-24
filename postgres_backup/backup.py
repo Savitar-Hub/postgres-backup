@@ -85,7 +85,7 @@ class Backup:
     def upload(
         self,
         clean: typing.Optional[bool] = True,
-        bucket_name: typing.Optional[str] = 'backup',
+        bucket_name: typing.Optional[str] = settings.BUCKET_NAME,
         remote_file_path: typing.Optional[str] = '',
         provider: typing.Optional[str] = CloudProviders.gcs.value,
         # For uploading in Google Cloud

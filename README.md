@@ -24,11 +24,12 @@ Note that the URI has the following structure: `db:engine:[//[user[:password]@][
 ## Why?
 
 This package has proved experience of working well for databases of small-mid size.
+
 Doing this, you make sure you can store your database backups without relying in only one cloud provider or region.
 
 ## Bucket Storage
 
-Have provided also the ability to store those backups in cloud buckets.
+Have provided the ability to store those backups in cloud buckets.
 
 ### Google Cloud Storage
 
@@ -46,8 +47,6 @@ And then after we have the backup created, we would keep following with:
     # Upload it to google cloud storage
     backup.upload(
         provider=CloudProviders.gcs.value,
-        bucket_name=bucket_name,
-        google_cloud_certification
     )
 ```
 
@@ -67,7 +66,7 @@ Where the `google_cloud_certification` is a dictionary, with the key-values of t
     }
 ```
 
-You can provide each key as an environmental variable, as well as `DATABASE_URL` and `PROJECT_NAME` of the google bucket.
+You can provide each key as an environmental variable, `PROJECT_NAME` and `BUCKET_NAME` of the google bucket, as well as `DATABASE_URL` of Postgres database.
 
 
 In the case that we do not have a bucket already created for storing the backups, we could add additional parameters to create it:
@@ -77,7 +76,6 @@ In the case that we do not have a bucket already created for storing the backups
     backup.upload(
         provider=CloudProviders.gcs.value,
         bucket_name=bucket_name,
-        google_cloud_certification,
         create_bucket=True,
         storage_class=CloudStorageType.NEARLINE.value
     )
