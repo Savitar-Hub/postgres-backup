@@ -29,8 +29,9 @@ Have provided also the ability to store those backups in cloud buckets.
 
 For using this functionality, you need to install the dependencies needed of the package:
 ```bash
-    pip3 install postgres-backup[gcs]
+    pip3 install "postgres-backup[gcs]"
 ```
+This basically will install also the `google` package.
 
 And then after we have the backup created, we would keep following with:
 ```python
@@ -46,18 +47,6 @@ And then after we have the backup created, we would keep following with:
 ```
 
 Where the `google_cloud_certification` is a dictionary, with the key-values of the client api keys:
-- type
-- project_id
-- private_key_id
-- private_key
-- client_email
-- client_id
-- auth_uri
-- token_uri
-- auth_provider_x509_cert_url
-- client_x509_cert_url
-
-An example would be:
 ```python
     google_cloud_credentials = {
       type: "service_account",
