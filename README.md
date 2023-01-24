@@ -13,13 +13,14 @@ You can upload them to cloud storage buckets by creating a cron job.
     from postgres_backup import Backup
 
     # Instantiate the backup object with Postgres database_uri
-    backup = Backup(database_uri)
+    backup = Backup()
 
     # Create the file for backup
     backup.create()
 ```
 
-Note that the URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`.
+You should have as environment variable `DATABASE_URL`, which is the URI of the Postgres database.
+This URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`.
 
 ## Why?
 
