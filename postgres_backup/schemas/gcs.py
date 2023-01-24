@@ -1,7 +1,7 @@
-from enum import StrEnum
+from enum import Enum
 
 
-class CloudStorageType(StrEnum):
+class CloudStorageType(str, Enum):
     STANDARD = 'STANDARD'
     NEARLINE = 'NEARLINE'
     COLDLINE = 'COLDLINE'
