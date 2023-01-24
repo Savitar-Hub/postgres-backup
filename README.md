@@ -59,11 +59,11 @@ Where the `google_cloud_certification` is a dictionary, with the key-values of t
 
 In the case that we do not have a bucket already created for storing the backups, we could add additional parameters to create it:
 ```python
-    from postgres_backup.schemas.gcs import CloudStorageType
+    from postgres_backup.schemas import CloudStorageType, CloudProviders
 
     backup.upload(
-        storage='gcs',
-        bucket_name,
+        provider=CloudProviders.gcs.value,
+        bucket_name=bucket_name,
         google_cloud_certification,
         create_bucket=True,
         storage_class=CloudStorageType.STANDARD.value
