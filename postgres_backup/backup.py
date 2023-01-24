@@ -1,14 +1,12 @@
-import os
 import gzip
+import os
 import typing
-from pathlib import Path
 from datetime import date
+from pathlib import Path
 
-from logger import logger
 from google.cloud import storage
-from google.cloud.storage.bucket import Bucket
-from google.cloud.storage.client import Client
 from google.oauth2 import service_account
+from logger import logger
 
 from postgres_backup.schemas import CloudStorageType
 from postgres_backup.schemas.providers import CloudProviders
@@ -60,13 +58,13 @@ class Backup:
         logger.info('Staging creation of backup')
 
         file_name = out_file_name \
-           + '/' \
-           + str(date.today()) \
-           + out_file_extension
+            + '/' \
+            + str(date.today()) \
+            + out_file_extension
 
         out_path = local_file_path \
-           + '/' \
-           + file_name
+            + '/' \
+            + file_name
 
         self.file_name = file_name
         self.local_file_path = local_file_path
@@ -88,9 +86,9 @@ class Backup:
     def upload(
         self,
         clean: typing.Optional[bool] = True,
-        bucket_name:  typing.Optional[str] = 'backup',
+        bucket_name: typing.Optional[str] = 'backup',
         remote_file_path: typing.Optional[str] = '',
-        provider:  typing.Optional[str] = CloudProviders.gcs.value,
+        provider: typing.Optional[str] = CloudProviders.gcs.value,
         # For uploading in Google Cloud
         project_name: typing.Optional[str] = '',
         google_cloud_certification: typing.Optional[

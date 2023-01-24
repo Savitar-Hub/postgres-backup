@@ -36,7 +36,7 @@ And then after we have the backup created, we would keep following with:
 ```python
     # Create the backup
     backup.create()
-    
+
     # Upload it to google cloud storage
     backup.upload(
         storage='gcs',

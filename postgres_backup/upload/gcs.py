@@ -1,11 +1,5 @@
-import datetime as dt
 import os
 import typing
-
-from google.cloud import storage
-from google.cloud.storage.bucket import Bucket
-from google.cloud.storage.client import Client
-from google.oauth2 import service_account
 
 from postgres_backup.exceptions.gcs import BucketError
 from postgres_backup.schemas.gcs import CloudStorageType
@@ -24,7 +18,7 @@ class GCStorage:
     @staticmethod
     def _validate_bucket(self) -> bool:
         """
-        Validation of the bucket that we provided.
+        Validate of the bucket that we provided.
 
         :param self:
         :return: True if it is a valid bucket
