@@ -1,4 +1,4 @@
-from backup import Backup
+from .backup import Backup
 
 __all__ = [
     'Backup'

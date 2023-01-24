@@ -1,4 +1,4 @@
-from gcs import GCStorage
+from .gcs import GCStorage
 
 __all__ = [
     'GCStorage'

@@ -1,4 +1,4 @@
-from gcs import BucketError
+from .gcs import BucketError
 
 __all__ = [
     'BucketError'
