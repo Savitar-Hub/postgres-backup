@@ -66,7 +66,19 @@ Where the `google_cloud_certification` is a dictionary, with the key-values of t
     }
 ```
 
-You can provide each key as an environmental variable, `PROJECT_NAME` and `BUCKET_NAME` of the google bucket, as well as `DATABASE_URL` of Postgres database.
+Recommended to provide each key as an environmental variable:
+- GOOGLE_CLOUD_TYPE -> type
+- GOOGLE_CLOUD_PROJECT_ID -> project_id
+- GOOGLE_CLOUD_PRIVATE_KEY_ID -> private_key_id
+- GOOGLE_CLOUD_PRIVATE_KEY -> private_key
+- GOOGLE_CLOUD_CLIENT_EMAIL -> client_email
+- GOOGLE_CLOUD_CLIENT_ID -> client_id
+- GOOGLE_CLOUD_AUTH_URI -> auth_uri
+- GOOGLE_CLOUD_TOKEN_URI -> token_uri
+- GOOGLE_CLOUD_AUTH_PROVIDER_X509_CERT_URL -> auth_provider_x509_cert_url
+- GOOGLE_CLOUD_CLIENT_X509_CERT_URL -> client_x509_cert_url
+
+Moreover `PROJECT_NAME` and `BUCKET_NAME` of the google bucket, and finally `DATABASE_URL` of Postgres database.
 
 
 In the case that we do not have a bucket already created for storing the backups, we could add additional parameters to create it:
