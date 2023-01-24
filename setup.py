@@ -19,7 +19,10 @@ classifiers = [
 ]
 
 extras = {
-    'gcs': ['google==3.0.0'],
+    'gcs': [
+        'google==3.0.0',
+        'google-cloud-storage==2.7.0'
+    ],
     'aws': ['boto3']
 }
 
