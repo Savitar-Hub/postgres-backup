@@ -110,4 +110,4 @@ After that, you can use the method of `upload` of the Backup as:
     )
 ```
 
-It requires you to have as environmental variables `AWS_SERVER_PUBLIC_KEY` and `AWS_SERVER_PRIVATE_KEY`.
+It requires you to have as environmental variables `AWS_SERVER_PUBLIC_KEY`, `AWS_SERVER_PRIVATE_KEY` and `REGION_NAME`.

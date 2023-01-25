@@ -17,4 +17,4 @@ class AWSStorage:
         :return: list with all the names of the actual buckets
         """
 
-        return [bucket.name for bucket in self.client.buckets.all()]
+        return [bucket.name for bucket in self.s3_resource.buckets.all()]

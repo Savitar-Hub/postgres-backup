@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     # AWS information
     AWS_SERVER_PUBLIC_KEY: str = os.getenv('AWS_SERVER_PUBLIC_KEY')
     AWS_SERVER_PRIVATE_KEY: str = os.getenv('AWS_SERVER_PRIVATE_KEY')
+    REGION_NAME: str = os.getenv('REGION_NAME')
 
     # Google Cloud Certification information
     GOOGLE_CLOUD_TYPE = os.getenv('GOOGLE_CLOUD_TYPE')

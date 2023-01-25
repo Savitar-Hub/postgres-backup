@@ -99,7 +99,8 @@ class Backup:
         storage_class=CloudStorageType.NEARLINE.value,
         # For uploading to AWS
         aws_server_public_key: typing.Optional[str] = settings.AWS_SERVER_PUBLIC_KEY,
-        aws_server_private_key: typing.Optional[str] = settings.AWS_SERVER_PRIVATE_KEY
+        aws_server_private_key: typing.Optional[str] = settings.AWS_SERVER_PRIVATE_KEY,
+        region_name: typing.Optional[str] = settings.REGION_NAME
     ):
 
         file_name = self.file_name if self.file_name else file_name
