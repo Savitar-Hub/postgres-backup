@@ -4,11 +4,11 @@ import typing
 class AWSStorage:
     def __init__(
         self,
-        client,
+        s3_resource,
         bucket_name: typing.Optional[str] = 'backup'
     ):
 
-        self.client = client
+        self.s3_resource = s3_resource
         self.bucket_name = bucket_name
 
     def list_bucket_name(self) -> typing.List[str]:
