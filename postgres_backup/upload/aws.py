@@ -1,3 +1,4 @@
+import os
 import typing
 
 
@@ -36,3 +37,33 @@ class AWSStorage:
         )
 
         return True
+
+    def upload_file(
+        self,
+        file_name,
+        local_file_path,
+        remote_file_path,
+        clean,
+        create_bucket,
+    ):
+        """
+        :param local_file_path: where is the path of folders where we have the file
+        :param remote_file_path: path if folders where we want to store the backup file in the bucket
+        :param file_name: where it is the file from our local file system
+        :param clean: if we want to remove the backup file from local file system
+        :param create_bucket: if for that upload of file, we want to first create the bucket for backups
+        :param storage_class: the type of storage bucket for storing backups
+        :return: True if created correctly
+        """
+
+        if create_bucket:
+            self.create_bucket()
+
+        self.s3_resource.meta.client.upload_file(
+            local_file_path + '/' + file_name,
+            self.bucket_name,
+            remote_file_path
+        )
+
+        if clean:
+            os.remove(local_file_path + '/' + file_name)

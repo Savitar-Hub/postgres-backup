@@ -129,13 +129,18 @@ class Backup:
             # Create a Boto3 Session
             session = boto3.Session(
                 aws_server_public_key=aws_server_public_key,
-                aws_server_private_key=aws_server_private_key
+                aws_server_private_key=aws_server_private_key,
+                region_name=region_name
             )
 
             # Select the resource for which we want to work
             s3_resource = session.resource('s3')
 
-            aws_storage = AWSStorage(s3_resource, bucket_name)
+            aws_storage = AWSStorage(
+                s3_resource,
+                bucket_name,
+                region_name
+            )
 
             aws_storage.upload_file(
                 file_name=file_name,
