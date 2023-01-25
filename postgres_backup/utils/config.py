@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = os.getenv('PROJECT_NAME')
     BUCKET_NAME: str = os.getenv('BUCKET_NAME')
 
+    # AWS information
+    AWS_SERVER_PUBLIC_KEY: str = os.getenv('AWS_SERVER_PUBLIC_KEY')
+    AWS_SERVER_PRIVATE_KEY: str = os.getenv('AWS_SERVER_PRIVATE_KEY')
+
     # Google Cloud Certification information
     GOOGLE_CLOUD_TYPE = os.getenv('GOOGLE_CLOUD_TYPE')
     GOOGLE_CLOUD_PROJECT_ID = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
