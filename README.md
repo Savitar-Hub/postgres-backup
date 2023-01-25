@@ -35,6 +35,7 @@ Have provided the ability to store those backups in cloud buckets.
 ### Google Cloud Storage
 
 For using this functionality, you need to install the dependencies needed of the package:
+
 ```bash
     pip3 install "postgres-backup[gcs]"
 ```
@@ -90,3 +91,23 @@ In the case that we do not have a bucket already created for storing the backups
         storage_class=CloudStorageType.NEARLINE.value
     )
 ```
+
+
+### Amazon Web Services
+
+For uploading into AWS after having created the backup, you need first to install the optional dependencies:
+
+```bash
+    pip3 install "postgres-backup[aws]"
+```
+
+After that, you can use the method of `upload` of the Backup as:
+
+```python
+    # Upload it to aws storage
+    backup.upload(
+        provider=CloudProviders.aws.value,
+    )
+```
+
+It requires you to have as environmental variables `AWS_SERVER_PUBLIC_KEY` and `AWS_SERVER_PRIVATE_KEY`.
