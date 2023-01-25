@@ -4,11 +4,12 @@ import typing
 from datetime import date
 from pathlib import Path
 
+import boto3
 from google.cloud import storage
 from google.oauth2 import service_account
 
 from postgres_backup.schemas import CloudProviders, CloudStorageType
-from postgres_backup.upload import GCStorage
+from postgres_backup.upload import AWSStorage, GCStorage
 from postgres_backup.utils import logger, settings
 
 try:
@@ -95,8 +96,13 @@ class Backup:
             typing.Dict[str, str]
         ] = settings.GOOGLE_CLOUD_CERTIFICATION,
         create_bucket: typing.Optional[bool] = False,
-        storage_class=CloudStorageType.NEARLINE.value
+        storage_class=CloudStorageType.NEARLINE.value,
+        # For uploading to AWS
+        aws_server_public_key: typing.Optional[str] = settings.AWS_SERVER_PUBLIC_KEY,
+        aws_server_private_key: typing.Optional[str] = settings.AWS_SERVER_PRIVATE_KEY
     ):
+
+        file_name = self.file_name if self.file_name else file_name
 
         if provider == 'google_cloud_storage':
             credentials = service_account.Credentials.from_service_account_info(
@@ -109,9 +115,28 @@ class Backup:
             )
             gcs_storage = GCStorage(client=client, bucket_name=bucket_name)
 
-            file_name = self.file_name if self.file_name else file_name
-
             gcs_storage.upload_file(
+                file_name=file_name,
+                local_file_path=self.local_file_path,
+                remote_file_path=remote_file_path,
+                clean=clean,
+                create_bucket=create_bucket,
+                storage_class=storage_class
+            )
+
+        elif provider == 'amazon_web_services':
+            # Create a Boto3 Session
+            session = boto3.Session(
+                aws_server_public_key=aws_server_public_key,
+                aws_server_private_key=aws_server_private_key
+            )
+
+            # Select the resource for which we want to work
+            s3_resource = session.resource('s3')
+
+            aws_storage = AWSStorage(s3_resource, bucket_name)
+
+            aws_storage.upload_file(
                 file_name=file_name,
                 local_file_path=self.local_file_path,
                 remote_file_path=remote_file_path,
