@@ -121,10 +121,9 @@ class GCStorage:
             remote_file_path + file_name
         )
 
-        # TODO: Check if will need / to better convinience
-        blob.upload_from_filename(local_file_path + file_name)
+        blob.upload_from_filename(local_file_path + '/' + file_name)
 
         if clean:
-            os.remove(local_file_path + file_name)
+            os.remove(local_file_path + '/' + file_name)
 
         return True
