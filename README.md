@@ -24,7 +24,7 @@ This URI has the following structure: `db:engine:[//[user[:password]@][host][:po
 
 Can also specify a list of the tables for which you want to create the backup:
 ```python
-    backup.create(table_names=['table1', 'table2', ...]
+    backup.create(table_names=['table1', 'table2', ...])
 ```
 
 ## Why?
