@@ -3,6 +3,7 @@ import os
 import typing
 from datetime import date
 from pathlib import Path
+from subprocess import PIPE, Popen
 
 import boto3
 from google.cloud import storage
@@ -11,12 +12,6 @@ from google.oauth2 import service_account
 from postgres_backup.schemas import CloudProviders, CloudStorageType
 from postgres_backup.upload import AWSStorage, GCStorage
 from postgres_backup.utils import logger, settings
-
-try:
-    from sh import pg_dump
-
-except ImportError as e:
-    logger.error(f'You must have sh & postgresql client installed: {e}')
 
 
 class Backup:
@@ -45,7 +40,7 @@ class Backup:
 
     def create(
         self,
-        local_file_path: typing.Optional[str] = './',
+        local_file_path: typing.Optional[str] = '.',
         out_file_name: typing.Union[str, Path] = 'backup',
         out_file_extension: typing.Union[str, Path] = '.gz',
         table_names: typing.Optional[typing.List[str]] = [],
@@ -70,16 +65,22 @@ class Backup:
         self.file_name = file_name
         self.local_file_path = local_file_path
 
+        table_names = ' '.join(f'-t {table_name}' for table_name in table_names)
+        command = f'pg_dump -h {host} -U {username} -d {db_name} -p 5432 {table_names} -E UTF-8'
+
         with gzip.open(out_path, 'wb') as f:
-            pg_dump(
-                '-h',
-                host,
-                '-U',
-                username,
-                db_name,
-                '-E UTF-8',
-                ' '.join(f'-t {table_name}' for table_name in table_names),
-                _out=f)
+            p = Popen(
+                command,
+                stdout=PIPE,
+                universal_newlines=True,
+                shell=True
+            )
+
+            for stdout_line in iter(p.stdout.readline, ''):
+                f.write(stdout_line.encode('utf-8'))
+
+            p.stdout.close()
+            p.wait()
 
         logger.info('Finished creation of backup')
 

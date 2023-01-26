@@ -22,6 +22,11 @@ You can upload them to cloud storage buckets by creating a cron job.
 You should have as environment variable `DATABASE_URL`, which is the URI of the Postgres database.
 This URI has the following structure: `db:engine:[//[user[:password]@][host][:port]/][dbname]`.
 
+Can also specify a list of the tables for which you want to create the backup:
+```python
+    backup.create(table_names=['table1', 'table2', ...]
+```
+
 ## Why?
 
 This package has proved experience of working well for databases of small-mid size.
