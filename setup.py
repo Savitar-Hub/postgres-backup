@@ -28,7 +28,7 @@ extras = {
 
 setup(
     name='postgres-backup',
-    version='0.2.1',
+    version='0.2.2',
     description='Automation of the creation of backups of Postgres databases',
     long_description=long_description,
     long_description_content_type='text/markdown',

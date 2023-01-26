@@ -47,7 +47,8 @@ class Backup:
         self,
         local_file_path: typing.Optional[str] = './',
         out_file_name: typing.Union[str, Path] = 'backup',
-        out_file_extension: typing.Union[str, Path] = '.gz'
+        out_file_extension: typing.Union[str, Path] = '.gz',
+        table_names: typing.Optional[typing.List[str]] = [],
     ) -> str:
 
         username, password, host, port, db_name = self.get_db_params()
@@ -77,6 +78,7 @@ class Backup:
                 username,
                 db_name,
                 '-E UTF-8',
+                ' '.join(f'-t {table_name}' for table_name in table_names),
                 _out=f)
 
         logger.info('Finished creation of backup')
