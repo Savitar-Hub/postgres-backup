@@ -1,7 +1,7 @@
 # Backup Postgres Database
 
 
-[![Downloads](https://static.pepy.tech/personalized-badge/postgres-backup?period=month&units=none&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/postgres-backup) ![Version](https://img.shields.io/badge/version-0.1.1-blue) ![Python-Version](https://img.shields.io/badge/python-3.9-blue) ![issues](https://img.shields.io/github/issues/Nil-Andreu/postgres-backup) ![PyPI - Status](https://img.shields.io/pypi/status/postgres-backup) ![License](https://img.shields.io/github/license/Nil-Andreu/postgres-backup)
+[![Downloads](https://static.pepy.tech/personalized-badge/postgres-backup?period=month&units=none&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/postgres-backup) ![Version](https://img.shields.io/badge/version-0.3.3-blue) ![Python-Version](https://img.shields.io/badge/python-3.9-blue) ![issues](https://img.shields.io/github/issues/Nil-Andreu/postgres-backup) ![PyPI - Status](https://img.shields.io/pypi/status/postgres-backup) ![License](https://img.shields.io/github/license/Nil-Andreu/postgres-backup)
 
 
 ## Basic Usage
